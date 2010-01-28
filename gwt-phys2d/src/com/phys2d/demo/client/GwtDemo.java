@@ -68,14 +68,14 @@ public abstract class GwtDemo {
 	protected World world = new World(new Vector2f(0.0f, 10.0f), 10,
 			new QuadSpaceStrategy(20, 5));
 	/** True if the simulation is running */
-	// private boolean running = true;
+	//private boolean running = true;
 
 	/** gwt-g2d canvas surface */
 	private final Surface surface;
-	
+
 	/** counter for click-generated bodies */
 	private int clickBodyCounter = 0;
-
+	
 	/** True if we should reset the demo on the next loop */
 	protected boolean needsReset;
 	/** True if we should render normals */
@@ -123,7 +123,6 @@ public abstract class GwtDemo {
 	 * Initialise the GUI
 	 */
 	private void initGUI() {
-
 		// NOTE: from GWT docs, using anonymous inner classes for this may result in excess memory usage... 
 		surface.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event) {
@@ -158,7 +157,7 @@ public abstract class GwtDemo {
 				update();
 			}
 		};
-		updateTimer.scheduleRepeating(200);
+		updateTimer.scheduleRepeating(50);
 		// update();
 	}
 
@@ -167,7 +166,7 @@ public abstract class GwtDemo {
 	 */
 	protected void update() {
 		// adaptive timing loop from Master Onyx
-		// long timeNow = System.currentTimeMillis();
+		//long timeNow = System.currentTimeMillis();
 		// frameAverage = (frameAverage * 10 + (timeNow - lastFrame)) / 11;
 		// lastFrame = timeNow;
 
@@ -178,7 +177,7 @@ public abstract class GwtDemo {
 		// }
 
 		// render
-		// long beforeRender = System.currentTimeMillis();
+		//long beforeRender = System.currentTimeMillis();
 		// Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 		// g.setColor(Color.white);
 		// g.fillRect(0,0,500,500);
@@ -200,15 +199,18 @@ public abstract class GwtDemo {
 		// some temporary code for outputting body values
 		BodyList bodies = world.getBodies();
 
+		// refresh canvas
+		surface.fillBackground(KnownColor.LIGHT_BLUE);
+		
 		for (int i = 0; i < bodies.size(); i++) {
 			Body body = bodies.get(i);
 
 			// System.out.println(body);
 			ROVector2f pos = body.getPosition();
 			surface.save().setFillStyle(KnownColor.GREEN_YELLOW).fillShape(
-					new ShapeBuilder().drawCircle(pos.getX(), pos.getY(), 20)
+					new ShapeBuilder().drawCircle(pos.getX(), pos.getY(), 10)
 							.build()).restore();
-			// drawBody(g, body);
+			drawBody(body);
 		}
 
 		// renderTime = System.currentTimeMillis() - beforeRender;
@@ -263,16 +265,14 @@ public abstract class GwtDemo {
 	// }
 	// }
 	//	
-	// /**
-	// * Draw a body
-	// *
-	// * @param g The graphics contact on which to draw
-	// * @param body The body to be drawn
-	// */
-	// protected void drawBody(Graphics2D g, Body body) {
-	// if (body.getShape() instanceof Box) {
-	// drawBoxBody(g,body,(Box) body.getShape());
-	// }
+	 /**
+	 * Draw a body
+	 * @param body The body to be drawn
+	 */
+	 protected void drawBody(Body body) {
+	 if (body.getShape() instanceof Box) {
+	 drawBoxBody(body,(Box) body.getShape());
+	 }
 	// if (body.getShape() instanceof Circle) {
 	// drawCircleBody(g,body,(Circle) body.getShape());
 	// }
@@ -281,9 +281,9 @@ public abstract class GwtDemo {
 	// }
 	// if (body.getShape() instanceof Polygon) {
 	// drawPolygonBody(g,body,(Polygon) body.getShape());
-	// }
-	// }
-	//	
+	 }
+//	 }
+		
 	// /**
 	// * Draw a polygon into the demo
 	// *
@@ -350,28 +350,43 @@ public abstract class GwtDemo {
 	// g.drawLine((int) x,(int) y,(int) (x+xo),(int) (y+yo));
 	// }
 	//	
-	// /**
-	// * Draw a box in the world
-	// *
-	// * @param g The graphics contact on which to draw
-	// * @param body The body to be drawn
-	// * @param box The shape to be drawn
-	// */
-	// protected void drawBoxBody(Graphics2D g, Body body, Box box) {
-	// Vector2f[] pts = box.getPoints(body.getPosition(), body.getRotation());
-	//		
-	// Vector2f v1 = pts[0];
-	// Vector2f v2 = pts[1];
-	// Vector2f v3 = pts[2];
-	// Vector2f v4 = pts[3];
-	//		
-	// g.setColor(Color.black);
-	// g.drawLine((int) v1.x,(int) v1.y,(int) v2.x,(int) v2.y);
-	// g.drawLine((int) v2.x,(int) v2.y,(int) v3.x,(int) v3.y);
-	// g.drawLine((int) v3.x,(int) v3.y,(int) v4.x,(int) v4.y);
-	// g.drawLine((int) v4.x,(int) v4.y,(int) v1.x,(int) v1.y);
-	// }
-	//
+
+	/**
+	 * Draw a box in the world
+	 * 
+	 * @param body
+	 *            The body to be drawn
+	 * @param box
+	 *            The shape to be drawn
+	 */
+	protected void drawBoxBody(Body body, Box box) {
+		Vector2f[] pts = box.getPoints(body.getPosition(), body.getRotation());
+
+		Vector2f v1 = pts[0];
+		Vector2f v2 = pts[1];
+		Vector2f v3 = pts[2];
+		Vector2f v4 = pts[3];
+
+//		g.setColor(Color.black);
+//		g.drawLine((int) v1.x, (int) v1.y, (int) v2.x, (int) v2.y);
+//		g.drawLine((int) v2.x, (int) v2.y, (int) v3.x, (int) v3.y);
+//		g.drawLine((int) v3.x, (int) v3.y, (int) v4.x, (int) v4.y);
+//		g.drawLine((int) v4.x, (int) v4.y, (int) v1.x, (int) v1.y);
+		surface.save()
+			.setFillStyle(KnownColor.DARK_BLUE)
+			.fillShape(new ShapeBuilder()
+				.drawCircle(v1.x, v1.y, 3)
+				.drawCircle(v2.x, v2.y, 3)
+				.drawCircle(v3.x, v3.y, 3)
+				.drawCircle(v4.x, v4.y, 3)
+				.drawLineSegment(v1.x, v1.y, v2.x, v2.y)
+				.drawLineSegment(v2.x, v2.y, v3.x, v3.y)
+				.drawLineSegment(v3.x, v3.y, v4.x, v4.y)
+				.drawLineSegment(v4.x, v4.y, v1.x, v1.y)
+				.build())
+				.restore();
+	}
+	
 	// /**
 	// * Draw a joint
 	// *
