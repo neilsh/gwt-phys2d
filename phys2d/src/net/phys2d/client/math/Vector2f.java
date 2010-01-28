@@ -38,7 +38,7 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.math;
+package net.phys2d.client.math;
 
 /**
  * A two dimensional vector
@@ -58,14 +58,14 @@ public strictfp class Vector2f implements ROVector2f {
 	}
 	
 	/**
-	 * @see net.phys2d.math.ROVector2f#getX()
+	 * @see net.phys2d.client.math.ROVector2f#getX()
 	 */
 	public float getX() {
 		return x;
 	}
 	
 	/**
-	 * @see net.phys2d.math.ROVector2f#getY()
+	 * @see net.phys2d.client.math.ROVector2f#getY()
 	 */
 	public float getY() {
 		return y;
@@ -101,7 +101,7 @@ public strictfp class Vector2f implements ROVector2f {
 	}
 	
 	/**
-	 * @see net.phys2d.math.ROVector2f#dot(net.phys2d.math.ROVector2f)
+	 * @see net.phys2d.client.math.ROVector2f#dot(net.phys2d.client.math.ROVector2f)
 	 */
 	public float dot(ROVector2f other) {
 		return (x * other.getX()) + (y * other.getY());
@@ -184,7 +184,7 @@ public strictfp class Vector2f implements ROVector2f {
 	}
 	
 	/**
-	 * @see net.phys2d.math.ROVector2f#length()
+	 * @see net.phys2d.client.math.ROVector2f#length()
 	 */
 	public float length() 
 	{

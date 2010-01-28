@@ -1,4 +1,4 @@
-package net.phys2d.raw;
+package net.phys2d.client.raw;
 
 /**
  * A description of class that can recieve notifications of collisions

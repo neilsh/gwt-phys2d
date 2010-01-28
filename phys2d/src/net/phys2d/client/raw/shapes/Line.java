@@ -35,10 +35,10 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw.shapes;
+package net.phys2d.client.raw.shapes;
 
-import net.phys2d.math.ROVector2f;
-import net.phys2d.math.Vector2f;
+import net.phys2d.client.math.ROVector2f;
+import net.phys2d.client.math.Vector2f;
 
 /**
  * Implemenation of a bunch of maths functions to do with lines. Note
@@ -347,7 +347,7 @@ public strictfp class Line extends AbstractShape implements DynamicShape {
 	}
 
 	/**
-	 * @see net.phys2d.raw.shapes.Shape#getSurfaceFactor()
+	 * @see net.phys2d.client.raw.shapes.Shape#getSurfaceFactor()
 	 */
 	public float getSurfaceFactor() {
 		return lengthSquared() / 2;

@@ -35,10 +35,10 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw.collide;
+package net.phys2d.client.raw.collide;
 
-import net.phys2d.raw.Body;
-import net.phys2d.raw.Contact;
+import net.phys2d.client.raw.Body;
+import net.phys2d.client.raw.Contact;
 
 /**
  * The description of any geometry collision resolver. 

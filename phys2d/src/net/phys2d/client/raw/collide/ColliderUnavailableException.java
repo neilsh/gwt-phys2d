@@ -35,9 +35,9 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw.collide;
+package net.phys2d.client.raw.collide;
 
-import net.phys2d.raw.shapes.Shape;
+import net.phys2d.client.raw.shapes.Shape;
 
 /**
  * An exception that is thrown by the ColliderFactory when no

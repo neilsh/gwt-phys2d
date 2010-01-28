@@ -1,6 +1,6 @@
-package net.phys2d.raw;
+package net.phys2d.client.raw;
 
-import net.phys2d.math.ROVector2f;
+import net.phys2d.client.math.ROVector2f;
 
 /**
  * An event describing a collision between two bodies

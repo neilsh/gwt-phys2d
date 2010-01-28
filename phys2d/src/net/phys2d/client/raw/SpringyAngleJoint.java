@@ -38,11 +38,11 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw;
+package net.phys2d.client.raw;
 
-import net.phys2d.math.MathUtil;
-import net.phys2d.math.Matrix2f;
-import net.phys2d.math.Vector2f;
+import net.phys2d.client.math.MathUtil;
+import net.phys2d.client.math.Matrix2f;
+import net.phys2d.client.math.Vector2f;
 
 /**
  * A joint providing a springy resistance between bodies. Wiring a series together
@@ -88,27 +88,27 @@ public class SpringyAngleJoint implements Joint {
 	}
 
 	/**
-	 * @see net.phys2d.raw.Joint#applyImpulse()
+	 * @see net.phys2d.client.raw.Joint#applyImpulse()
 	 */
 	public void applyImpulse() {
 	}
 
 	/**
-	 * @see net.phys2d.raw.Joint#getBody1()
+	 * @see net.phys2d.client.raw.Joint#getBody1()
 	 */
 	public Body getBody1() {
 		return body1;
 	}
 
 	/**
-	 * @see net.phys2d.raw.Joint#getBody2()
+	 * @see net.phys2d.client.raw.Joint#getBody2()
 	 */
 	public Body getBody2() {
 		return body2;
 	}
 
 	/**
-	 * @see net.phys2d.raw.Joint#preStep(float)
+	 * @see net.phys2d.client.raw.Joint#preStep(float)
 	 */
 	public void preStep(float invDT) {
 		Matrix2f rot1 = new Matrix2f(body1.getRotation());
@@ -152,7 +152,7 @@ public class SpringyAngleJoint implements Joint {
 	}
 
 	/**
-	 * @see net.phys2d.raw.Joint#setRelaxation(float)
+	 * @see net.phys2d.client.raw.Joint#setRelaxation(float)
 	 */
 	public void setRelaxation(float relaxation) {
 	}

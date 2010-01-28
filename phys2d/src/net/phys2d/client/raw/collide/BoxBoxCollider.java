@@ -38,15 +38,15 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw.collide;
+package net.phys2d.client.raw.collide;
 
-import net.phys2d.math.MathUtil;
-import net.phys2d.math.Matrix2f;
-import net.phys2d.math.ROVector2f;
-import net.phys2d.math.Vector2f;
-import net.phys2d.raw.Body;
-import net.phys2d.raw.Contact;
-import net.phys2d.raw.shapes.Box;
+import net.phys2d.client.math.MathUtil;
+import net.phys2d.client.math.Matrix2f;
+import net.phys2d.client.math.ROVector2f;
+import net.phys2d.client.math.Vector2f;
+import net.phys2d.client.raw.Body;
+import net.phys2d.client.raw.Contact;
+import net.phys2d.client.raw.shapes.Box;
 
 /**
  * The implementation of box to box collision. The create() method is
@@ -95,6 +95,10 @@ public strictfp class BoxBoxCollider implements Collider {
 	private static Vector2f hA = new Vector2f();
 	/** Temp vector */
 	private static Vector2f hB = new Vector2f();
+	
+	/** temp vector */
+	private static Matrix2f colRotA = new Matrix2f();
+	private static Matrix2f colRotB = new Matrix2f();
 	
 	/**
 	 * A simple structure describe a vertex against which the
@@ -253,7 +257,7 @@ public strictfp class BoxBoxCollider implements Collider {
 	}
 	
 	/**
-	 * @see net.phys2d.raw.collide.Collider#collide(net.phys2d.raw.Contact[], net.phys2d.raw.Body, net.phys2d.raw.Body)
+	 * @see net.phys2d.client.raw.collide.Collider#collide(net.phys2d.client.raw.Contact[], net.phys2d.client.raw.Body, net.phys2d.client.raw.Body)
 	 */
 	public int collide(Contact[] contacts, Body bodyA, Body bodyB) {
 		float x1 = bodyA.getPosition().getX();
@@ -279,11 +283,13 @@ public strictfp class BoxBoxCollider implements Collider {
 		ROVector2f posA = bodyA.getPosition();
 		ROVector2f posB = bodyB.getPosition();
 
-		Matrix2f rotA = new Matrix2f(bodyA.getRotation());
-		Matrix2f rotB = new Matrix2f(bodyB.getRotation());
+		//Matrix2f colRotA = new Matrix2f(bodyA.getRotation());
+		//Matrix2f colRotB = new Matrix2f(bodyB.getRotation());
+		colRotA.setAngle(bodyA.getRotation());
+		colRotB.setAngle(bodyB.getRotation());
 
-		Matrix2f RotAT = rotA.transpose();
-		Matrix2f RotBT = rotB.transpose();
+		Matrix2f RotAT = colRotA.transpose();
+		Matrix2f RotBT = colRotB.transpose();
 
 		// unused?
 //		Vector2f a1 = rotA.col1;
@@ -295,7 +301,7 @@ public strictfp class BoxBoxCollider implements Collider {
 		Vector2f dA = MathUtil.mul(RotAT,dp);
 		Vector2f dB = MathUtil.mul(RotBT,dp);
 
-		Matrix2f C = MathUtil.mul(RotAT,rotB);
+		Matrix2f C = MathUtil.mul(RotAT,colRotB);
 		Matrix2f absC = MathUtil.abs(C);
 		Matrix2f absCT = absC.transpose();
 
@@ -325,13 +331,13 @@ public strictfp class BoxBoxCollider implements Collider {
 		// Box A faces
 		axis = FACE_A_X;
 		separation = faceA.x;
-		normal = dA.x > 0.0f ? rotA.col1 : MathUtil.scale(rotA.col1,-1);
+		normal = dA.x > 0.0f ? colRotA.col1 : MathUtil.scale(colRotA.col1,-1);
 
 		if (faceA.y > 1.05f * separation + 0.01f * hA.y)
 		{
 			axis = FACE_A_Y;
 			separation = faceA.y;
-			normal = dA.y > 0.0f ? rotA.col2 : MathUtil.scale(rotA.col2,-1);
+			normal = dA.y > 0.0f ? colRotA.col2 : MathUtil.scale(colRotA.col2,-1);
 		}
 
 		// Box B faces
@@ -339,14 +345,14 @@ public strictfp class BoxBoxCollider implements Collider {
 		{
 			axis = FACE_B_X;
 			separation = faceB.x;
-			normal = dB.x > 0.0f ? rotB.col1 : MathUtil.scale(rotB.col1,-1);
+			normal = dB.x > 0.0f ? colRotB.col1 : MathUtil.scale(colRotB.col1,-1);
 		}
 
 		if (faceB.y > 1.05f * separation + 0.01f * hB.y)
 		{
 			axis = FACE_B_Y;
 			separation = faceB.y;
-			normal = dB.y > 0.0f ? rotB.col2 : MathUtil.scale(rotB.col2,-1);
+			normal = dB.y > 0.0f ? colRotB.col2 : MathUtil.scale(colRotB.col2,-1);
 		}
 
 		// Setup clipping plane data based on the separating axis
@@ -362,13 +368,13 @@ public strictfp class BoxBoxCollider implements Collider {
 			{
 				frontNormal = normal;
 				front = posA.dot(frontNormal) + hA.x;
-				sideNormal = rotA.col2;
+				sideNormal = colRotA.col2;
 				float side = posA.dot(sideNormal);
 				negSide = -side + hA.y;
 				posSide =  side + hA.y;
 				negEdge = EDGE3;
 				posEdge = EDGE1;
-				computeIncidentEdge(incidentEdge, hB, posB, rotB, frontNormal);
+				computeIncidentEdge(incidentEdge, hB, posB, colRotB, frontNormal);
 			}
 			break;
 
@@ -376,13 +382,13 @@ public strictfp class BoxBoxCollider implements Collider {
 			{
 				frontNormal = normal;
 				front = posA.dot(frontNormal) + hA.y;
-				sideNormal = rotA.col1;
+				sideNormal = colRotA.col1;
 				float side = posA.dot(sideNormal);
 				negSide = -side + hA.x;
 				posSide =  side + hA.x;
 				negEdge = EDGE2;
 				posEdge = EDGE4;
-				computeIncidentEdge(incidentEdge, hB, posB, rotB, frontNormal);
+				computeIncidentEdge(incidentEdge, hB, posB, colRotB, frontNormal);
 			}
 			break;
 
@@ -390,13 +396,13 @@ public strictfp class BoxBoxCollider implements Collider {
 			{
 				frontNormal = MathUtil.scale(normal,-1);
 				front = posB.dot(frontNormal) + hB.x;
-				sideNormal = rotB.col2;
+				sideNormal = colRotB.col2;
 				float side = posB.dot(sideNormal);
 				negSide = -side + hB.y;
 				posSide =  side + hB.y;
 				negEdge = EDGE3;
 				posEdge = EDGE1;
-				computeIncidentEdge(incidentEdge, hA, posA, rotA, frontNormal);
+				computeIncidentEdge(incidentEdge, hA, posA, colRotA, frontNormal);
 			}
 			break;
 
@@ -404,13 +410,13 @@ public strictfp class BoxBoxCollider implements Collider {
 			{
 				frontNormal = MathUtil.scale(normal,-1);
 				front = posB.dot(frontNormal) + hB.y;
-				sideNormal = rotB.col1;
+				sideNormal = colRotB.col1;
 				float side = posB.dot(sideNormal);
 				negSide = -side + hB.x;
 				posSide =  side + hB.x;
 				negEdge = EDGE2;
 				posEdge = EDGE4;
-				computeIncidentEdge(incidentEdge, hA, posA, rotA, frontNormal);
+				computeIncidentEdge(incidentEdge, hA, posA, colRotA, frontNormal);
 			}
 			break;
 		default:

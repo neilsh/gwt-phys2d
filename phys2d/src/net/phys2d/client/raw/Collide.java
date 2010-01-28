@@ -38,11 +38,11 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw;
+package net.phys2d.client.raw;
 
-import net.phys2d.raw.collide.Collider;
-import net.phys2d.raw.collide.ColliderFactory;
-import net.phys2d.raw.collide.ColliderUnavailableException;
+import net.phys2d.client.raw.collide.Collider;
+import net.phys2d.client.raw.collide.ColliderFactory;
+import net.phys2d.client.raw.collide.ColliderUnavailableException;
 
 /**
  * A static utility for resolve the collision between shapes

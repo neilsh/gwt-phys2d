@@ -35,15 +35,15 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw.collide;
+package net.phys2d.client.raw.collide;
 
-import net.phys2d.math.ROVector2f;
-import net.phys2d.math.Vector2f;
-import net.phys2d.raw.Body;
-import net.phys2d.raw.Contact;
-import net.phys2d.raw.shapes.Circle;
-import net.phys2d.raw.shapes.Polygon;
-import net.phys2d.raw.shapes.Line;
+import net.phys2d.client.math.ROVector2f;
+import net.phys2d.client.math.Vector2f;
+import net.phys2d.client.raw.Body;
+import net.phys2d.client.raw.Contact;
+import net.phys2d.client.raw.shapes.Circle;
+import net.phys2d.client.raw.shapes.Line;
+import net.phys2d.client.raw.shapes.Polygon;
 
 /**
  * Collide a circle with a convex polygon
@@ -54,7 +54,7 @@ import net.phys2d.raw.shapes.Line;
 public class PolygonCircleCollider extends PolygonPolygonCollider {
 	
 	/**
-	 * @see net.phys2d.raw.collide.Collider#collide(net.phys2d.raw.Contact[], net.phys2d.raw.Body, net.phys2d.raw.Body)
+	 * @see net.phys2d.client.raw.collide.Collider#collide(net.phys2d.client.raw.Contact[], net.phys2d.client.raw.Body, net.phys2d.client.raw.Body)
 	 */
 	public int collide(Contact[] contacts, Body bodyA, Body bodyB) {
 		Polygon polyA = (Polygon) bodyA.getShape();

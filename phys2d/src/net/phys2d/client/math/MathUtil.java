@@ -38,9 +38,8 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.math;
+package net.phys2d.client.math;
 
-import net.phys2d.math.Vector2f;
 
 /**
  * Simple utility wrapping up a bunch of math operations so that 

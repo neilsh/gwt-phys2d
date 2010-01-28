@@ -35,10 +35,10 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw.shapes;
+package net.phys2d.client.raw.shapes;
 
-import net.phys2d.math.ROVector2f;
-import net.phys2d.math.Vector2f;
+import net.phys2d.client.math.ROVector2f;
+import net.phys2d.client.math.Vector2f;
 
 /**
  * A polygon represented by a list of its vertices in counterclockwise
@@ -292,7 +292,7 @@ public class Polygon extends AbstractShape implements DynamicShape {
 	}
 
 	/**
-	 * @see net.phys2d.raw.shapes.Shape#getSurfaceFactor()
+	 * @see net.phys2d.client.raw.shapes.Shape#getSurfaceFactor()
 	 */
 	public float getSurfaceFactor() {
 		// TODO: return the real surface factor

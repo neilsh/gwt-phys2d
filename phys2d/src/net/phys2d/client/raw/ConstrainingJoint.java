@@ -1,6 +1,6 @@
-package net.phys2d.raw;
+package net.phys2d.client.raw;
 
-import net.phys2d.math.Vector2f;
+import net.phys2d.client.math.Vector2f;
 
 /**
  * A joint which only applys forces when the bodie's attempt to get too far apart, as 
@@ -59,7 +59,7 @@ public class ConstrainingJoint implements Joint {
 	}
 	
 	/**
-	 * @see net.phys2d.raw.Joint#applyImpulse()
+	 * @see net.phys2d.client.raw.Joint#applyImpulse()
 	 */
 	public void applyImpulse() {
 		if (active) {
@@ -68,21 +68,21 @@ public class ConstrainingJoint implements Joint {
 	}
 
 	/**
-	 * @see net.phys2d.raw.Joint#getBody1()
+	 * @see net.phys2d.client.raw.Joint#getBody1()
 	 */
 	public Body getBody1() {
 		return body1;
 	}
 
 	/**
-	 * @see net.phys2d.raw.Joint#getBody2()
+	 * @see net.phys2d.client.raw.Joint#getBody2()
 	 */
 	public Body getBody2() {
 		return body2;
 	}
 
 	/**
-	 * @see net.phys2d.raw.Joint#preStep(float)
+	 * @see net.phys2d.client.raw.Joint#preStep(float)
 	 */
 	public void preStep(float invDT) {
 		if (isActive()) {
@@ -94,7 +94,7 @@ public class ConstrainingJoint implements Joint {
 	}
 
 	/**
-	 * @see net.phys2d.raw.Joint#setRelaxation(float)
+	 * @see net.phys2d.client.raw.Joint#setRelaxation(float)
 	 */
 	public void setRelaxation(float relaxation) {
 	}

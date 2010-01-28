@@ -35,7 +35,7 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw.shapes;
+package net.phys2d.client.raw.shapes;
 
 /**
  * A simple Circle within the simulation, defined by its radius and the
@@ -68,7 +68,7 @@ public strictfp class Circle extends AbstractShape implements DynamicShape {
 	}
 
 	/**
-	 * @see net.phys2d.raw.shapes.Shape#getSurfaceFactor()
+	 * @see net.phys2d.client.raw.shapes.Shape#getSurfaceFactor()
 	 */
 	public float getSurfaceFactor() {
 		float circ = (float) (2 * Math.PI * radius);

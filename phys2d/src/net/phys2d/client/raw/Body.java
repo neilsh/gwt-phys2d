@@ -38,14 +38,14 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw;
+package net.phys2d.client.raw;
 
 import java.util.ArrayList;
 
-import net.phys2d.math.ROVector2f;
-import net.phys2d.math.Vector2f;
-import net.phys2d.raw.shapes.DynamicShape;
-import net.phys2d.raw.shapes.Shape;
+import net.phys2d.client.math.ROVector2f;
+import net.phys2d.client.math.Vector2f;
+import net.phys2d.client.raw.shapes.DynamicShape;
+import net.phys2d.client.raw.shapes.Shape;
 
 /**
  * A single body within the physics model

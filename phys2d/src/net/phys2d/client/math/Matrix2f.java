@@ -38,9 +38,8 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.math;
+package net.phys2d.client.math;
 
-import net.phys2d.math.Vector2f;
 
 /**
  * A two dimensional vector
@@ -83,6 +82,14 @@ public strictfp class Matrix2f {
 		this.col2.set(col2);
 	}
 
+	/** helper function, code copied from constructor */
+	public void setAngle(float angle) {
+		float c = (float) Math.cos(angle);
+		float s = (float) Math.sin(angle);
+		col1.x = c; col2.x = -s;
+		col1.y = s; col2.y = c;
+	}
+	
 	/**
 	 * Transpose the matrix
 	 * 

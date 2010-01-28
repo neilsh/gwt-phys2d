@@ -1,6 +1,6 @@
-package net.phys2d.raw.forcesource;
+package net.phys2d.client.raw.forcesource;
 
-import net.phys2d.raw.Body;
+import net.phys2d.client.raw.Body;
 
 /**
  * A source of force that can potentially be applied to every body every frame

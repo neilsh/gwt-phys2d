@@ -35,11 +35,11 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw.strategies;
+package net.phys2d.client.raw.strategies;
 
-import net.phys2d.raw.BodyList;
-import net.phys2d.raw.BroadCollisionStrategy;
-import net.phys2d.raw.CollisionContext;
+import net.phys2d.client.raw.BodyList;
+import net.phys2d.client.raw.BroadCollisionStrategy;
+import net.phys2d.client.raw.CollisionContext;
 
 /**
  * Brute force collision. Compare every body against every other
@@ -49,7 +49,7 @@ import net.phys2d.raw.CollisionContext;
 public class BruteCollisionStrategy implements BroadCollisionStrategy {
 
 	/**
-	 * @see net.phys2d.raw.BroadCollisionStrategy#collideBodies(net.phys2d.raw.CollisionContext, net.phys2d.raw.BodyList, float)
+	 * @see net.phys2d.client.raw.BroadCollisionStrategy#collideBodies(net.phys2d.client.raw.CollisionContext, net.phys2d.client.raw.BodyList, float)
 	 */
 	public void collideBodies(CollisionContext context, BodyList bodies, float dt) {
 		context.resolve(bodies, dt);

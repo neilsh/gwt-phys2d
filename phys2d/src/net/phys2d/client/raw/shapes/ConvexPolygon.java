@@ -35,11 +35,11 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw.shapes;
+package net.phys2d.client.raw.shapes;
 
-import net.phys2d.math.MathUtil;
-import net.phys2d.math.ROVector2f;
-import net.phys2d.math.Vector2f;
+import net.phys2d.client.math.MathUtil;
+import net.phys2d.client.math.ROVector2f;
+import net.phys2d.client.math.Vector2f;
 
 /**
  * Class representing a convex and closed polygon as a list of vertices
@@ -164,7 +164,7 @@ public class ConvexPolygon extends Polygon implements DynamicShape {
 	}
 
 	/**
-	 * @see net.phys2d.raw.shapes.Shape#getSurfaceFactor()
+	 * @see net.phys2d.client.raw.shapes.Shape#getSurfaceFactor()
 	 */
 	public float getSurfaceFactor() {
 		// TODO: return the real surface factor

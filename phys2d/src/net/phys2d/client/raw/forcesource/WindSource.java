@@ -1,7 +1,7 @@
-package net.phys2d.raw.forcesource;
+package net.phys2d.client.raw.forcesource;
 
-import net.phys2d.math.Vector2f;
-import net.phys2d.raw.Body;
+import net.phys2d.client.math.Vector2f;
+import net.phys2d.client.raw.Body;
 
 /**
  * A source to apply wind to all bodies in a given direction
@@ -25,7 +25,7 @@ public class WindSource implements ForceSource {
 	}
 	
 	/**
-	 * @see net.phys2d.raw.forcesource.ForceSource#apply(net.phys2d.raw.Body, float)
+	 * @see net.phys2d.client.raw.forcesource.ForceSource#apply(net.phys2d.client.raw.Body, float)
 	 */
 	public void apply(Body body, float delta) {
 		body.addForce(force);

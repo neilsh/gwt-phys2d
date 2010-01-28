@@ -1,8 +1,8 @@
-package net.phys2d.raw;
+package net.phys2d.client.raw;
 
 import java.util.ArrayList;
 
-import net.phys2d.math.ROVector2f;
+import net.phys2d.client.math.ROVector2f;
 
 /**
  * A space that will resolve collisions and report them to registered 
@@ -156,7 +156,7 @@ public class CollisionSpace implements CollisionContext {
 	}
 	
 	/**
-	 * @see net.phys2d.raw.CollisionContext#resolve(net.phys2d.raw.BodyList, float)
+	 * @see net.phys2d.client.raw.CollisionContext#resolve(net.phys2d.client.raw.BodyList, float)
 	 */
 	public void resolve(BodyList bodyList, float dt) {
 		for (int i = 0; i < bodyList.size(); ++i)
