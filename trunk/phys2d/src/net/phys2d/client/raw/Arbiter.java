@@ -38,10 +38,10 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw;
+package net.phys2d.client.raw;
 
-import net.phys2d.math.MathUtil;
-import net.phys2d.math.Vector2f;
+import net.phys2d.client.math.MathUtil;
+import net.phys2d.client.math.Vector2f;
 
 /**
  * A arbiter resolving contacts between a pair of bodies
@@ -51,6 +51,7 @@ import net.phys2d.math.Vector2f;
 public strictfp class Arbiter {
 	/** The maximum number of points of contact */
 	public static final int MAX_POINTS = 10;
+	//public static final int MAX_POINTS = 3;
 
 	/** The contacts being resolved by this arbiter */
 	private Contact[] contacts = new Contact[MAX_POINTS];
@@ -62,6 +63,12 @@ public strictfp class Arbiter {
 	private Body body2;
 	/** Combined friction between two bodies */
 	private float friction;
+	
+	/** temporary variables created as class members for efficiency **/
+	/** Used by Arbiter::applyImpulse() **/
+	private Vector2f impR1 = new Vector2f(0,0);
+	private Vector2f impR2 = new Vector2f(0,0);
+	private Vector2f impRelativeVelocity = new Vector2f(0,0);
 	
 	/**
 	 * Create a new arbiter - this should only be done by the 
@@ -85,6 +92,11 @@ public strictfp class Arbiter {
 			body1 = b2;
 			body2 = b1;
 		}
+		
+		// initialize reusable temporary variables
+		//impR1 = new Vector2f(0,0);
+		//impR2 = new Vector2f(0,0);
+		//impRelativeVelocity = new Vector2f(0,0);
 	}
 	
 	/**
@@ -440,19 +452,25 @@ public strictfp class Arbiter {
 		{
 			Contact c = contacts[i];
 			
-			Vector2f r1 = new Vector2f(c.position);
-			r1.sub(b1.getPosition());
-			Vector2f r2 = new Vector2f(c.position);
-			r2.sub(b2.getPosition());
+			//Vector2f impR1 = new Vector2f(c.position);
+			impR1.x = c.position.getX();
+			impR1.y = c.position.getY();
+			impR1.sub(b1.getPosition());
+			//Vector2f impR2 = new Vector2f(c.position);
+			impR2.x = c.position.x;
+			impR2.y = c.position.y;
+			impR2.sub(b2.getPosition());
 
 			// Relative velocity at contact
-			Vector2f relativeVelocity =  new Vector2f(b2.getVelocity());
-			relativeVelocity.add(MathUtil.cross(b2.getAngularVelocity(), r2));
-			relativeVelocity.sub(b1.getVelocity());
-			relativeVelocity.sub(MathUtil.cross(b1.getAngularVelocity(), r1));
+			//Vector2f impRelativeVelocity =  new Vector2f(b2.getVelocity());
+			impRelativeVelocity.x = b2.getVelocity().getX();
+			impRelativeVelocity.y = b2.getVelocity().getY();
+			impRelativeVelocity.add(MathUtil.cross(b2.getAngularVelocity(), impR2));
+			impRelativeVelocity.sub(b1.getVelocity());
+			impRelativeVelocity.sub(MathUtil.cross(b1.getAngularVelocity(), impR1));
 			
 			// Compute normal impulse with bias.
-			float vn = relativeVelocity.dot(c.normal);
+			float vn = impRelativeVelocity.dot(c.normal);
 			
 			// bias caculations are now handled seperately hence we only
 			// handle the real impulse caculations here
@@ -469,10 +487,10 @@ public strictfp class Arbiter {
 			
 			Vector2f temp = new Vector2f();
 			b1.adjustVelocity(MathUtil.scale(impulse, -b1.getInvMass(), temp));
-			b1.adjustAngularVelocity(-(b1.getInvI() * MathUtil.cross(r1, impulse)));
+			b1.adjustAngularVelocity(-(b1.getInvI() * MathUtil.cross(impR1, impulse)));
 
 			b2.adjustVelocity(MathUtil.scale(impulse, b2.getInvMass(), temp));
-			b2.adjustAngularVelocity(b2.getInvI() * MathUtil.cross(r2, impulse));
+			b2.adjustAngularVelocity(b2.getInvI() * MathUtil.cross(impR2, impulse));
 
 			// skip factors if the accumulated normal impulse is lower than tolerance
 			// this tolerance should be calculated on something else, but can't work out
@@ -484,11 +502,11 @@ public strictfp class Arbiter {
 			
 			// Compute bias impulse
 			// NEW STUFF FOR SEPERATING BIAS
-			relativeVelocity.set(b2.getBiasedVelocity());
-			relativeVelocity.add(MathUtil.cross(b2.getBiasedAngularVelocity(), r2));
-			relativeVelocity.sub(b1.getBiasedVelocity());
-			relativeVelocity.sub(MathUtil.cross(b1.getBiasedAngularVelocity(), r1));
-			float vnb = relativeVelocity.dot(c.normal);
+			impRelativeVelocity.set(b2.getBiasedVelocity());
+			impRelativeVelocity.add(MathUtil.cross(b2.getBiasedAngularVelocity(), impR2));
+			impRelativeVelocity.sub(b1.getBiasedVelocity());
+			impRelativeVelocity.sub(MathUtil.cross(b1.getBiasedAngularVelocity(), impR1));
+			float vnb = impRelativeVelocity.dot(c.normal);
 
 			float biasImpulse = c.massNormal * (-vnb + c.bias);
 			float oldBiasImpulse = c.biasImpulse;
@@ -498,10 +516,10 @@ public strictfp class Arbiter {
 			Vector2f Pb = MathUtil.scale(c.normal, biasImpulse);
 			
 			b1.adjustBiasedVelocity(MathUtil.scale(Pb, -b1.getInvMass(), temp));
-			b1.adjustBiasedAngularVelocity(-(b1.getInvI() * MathUtil.cross(r1, Pb)));
+			b1.adjustBiasedAngularVelocity(-(b1.getInvI() * MathUtil.cross(impR1, Pb)));
 
 			b2.adjustBiasedVelocity(MathUtil.scale(Pb, b2.getInvMass(), temp));
-			b2.adjustBiasedAngularVelocity((b2.getInvI() * MathUtil.cross(r2, Pb)));
+			b2.adjustBiasedAngularVelocity((b2.getInvI() * MathUtil.cross(impR2, Pb)));
 
 			// END NEW STUFF
 			
@@ -511,13 +529,13 @@ public strictfp class Arbiter {
 			float maxTangentImpulse = friction * c.accumulatedNormalImpulse;
 
 			// Relative velocity at contact
-			relativeVelocity.set(b2.getVelocity());
-			relativeVelocity.add(MathUtil.cross(b2.getAngularVelocity(), r2));
-			relativeVelocity.sub(b1.getVelocity());
-			relativeVelocity.sub(MathUtil.cross(b1.getAngularVelocity(), r1));
+			impRelativeVelocity.set(b2.getVelocity());
+			impRelativeVelocity.add(MathUtil.cross(b2.getAngularVelocity(), impR2));
+			impRelativeVelocity.sub(b1.getVelocity());
+			impRelativeVelocity.sub(MathUtil.cross(b1.getAngularVelocity(), impR1));
 			
 			Vector2f tangent = MathUtil.cross(c.normal, 1.0f);
-			float vt = relativeVelocity.dot(tangent);
+			float vt = impRelativeVelocity.dot(tangent);
 			float tangentImpulse = c.massTangent * (-vt);
 
 			// Clamp friction
@@ -529,10 +547,10 @@ public strictfp class Arbiter {
 			impulse = MathUtil.scale(tangent, tangentImpulse);
 			
 			b1.adjustVelocity(MathUtil.scale(impulse, -b1.getInvMass(), temp));
-			b1.adjustAngularVelocity(-b1.getInvI() * MathUtil.cross(r1, impulse));
+			b1.adjustAngularVelocity(-b1.getInvI() * MathUtil.cross(impR1, impulse));
 
 			b2.adjustVelocity(MathUtil.scale(impulse, b2.getInvMass(), temp));
-			b2.adjustAngularVelocity(b2.getInvI() * MathUtil.cross(r2, impulse));
+			b2.adjustAngularVelocity(b2.getInvI() * MathUtil.cross(impR2, impulse));
 		}
 	}
 	
