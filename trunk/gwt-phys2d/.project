@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>phys2d-gwt</name>
+	<name>phys2d-gwt-gae</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -16,6 +16,16 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+			<name>com.google.appengine.eclipse.core.enhancerbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.google.appengine.eclipse.core.projectValidator</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>com.google.gdt.eclipse.core.webAppProjectValidator</name>
 			<arguments>
 			</arguments>
@@ -23,12 +33,13 @@
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>com.google.appengine.eclipse.core.gaeNature</nature>
 		<nature>com.google.gwt.eclipse.core.gwtNature</nature>
 		<nature>com.google.gdt.eclipse.core.webAppNature</nature>
 	</natures>
 	<linkedResources>
 		<link>
-			<name>phys2d</name>
+			<name>phys2d-src</name>
 			<type>2</type>
 			<location>C:/Documents and Settings/Neil/workspace/phys2d/src</location>
 		</link>
