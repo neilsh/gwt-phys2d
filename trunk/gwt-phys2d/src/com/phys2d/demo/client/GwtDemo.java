@@ -43,6 +43,10 @@ package com.phys2d.demo.client;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.Timer;
 
 import net.phys2d.client.math.ROVector2f;
@@ -54,7 +58,6 @@ import net.phys2d.client.raw.shapes.Box;
 import net.phys2d.client.raw.strategies.QuadSpaceStrategy;
 import gwt.g2d.client.graphics.KnownColor;
 import gwt.g2d.client.graphics.Surface;
-import gwt.g2d.client.graphics.shapes.Shape;
 import gwt.g2d.client.graphics.shapes.ShapeBuilder;
 
 /**
@@ -84,6 +87,11 @@ public abstract class GwtDemo {
 	private boolean normals = true;
 	/** True if we should render contact points */
 	private boolean contacts = true;
+	
+	/** x position of last mouse down-click */
+	private int xDown = 0;
+	/** x position of last mouse down-click */
+	private int yDown = 0;
 
 	/**
 	 * Create a new demo
@@ -126,12 +134,31 @@ public abstract class GwtDemo {
 	 */
 	private void initGUI() {
 		// NOTE: from GWT docs, using anonymous inner classes for this may result in excess memory usage... 
-		surface.addClickHandler(new ClickHandler(){
-			public void onClick(ClickEvent event) {
-				float xClick = event.getNativeEvent().getClientX()- surface.getAbsoluteLeft() + Document.get().getScrollLeft();
-				float yClick = event.getNativeEvent().getClientY()- surface.getAbsoluteTop() + Document.get().getScrollTop();
-				Body clickBody = new Body("ClickBody " + clickBodyCounter, new Box(50.0f, 50.0f), 100.0f);
-				clickBody.setPosition(xClick, yClick);
+		surface.addMouseDownHandler(new MouseDownHandler (){
+			public void onMouseDown(MouseDownEvent event) {
+				int xCur = event.getNativeEvent().getClientX()- surface.getAbsoluteLeft() + Document.get().getScrollLeft();
+				int yCur = event.getNativeEvent().getClientY()- surface.getAbsoluteTop() + Document.get().getScrollTop();
+				
+				xDown = xCur;
+				yDown = yCur;
+			}
+		});
+		surface.addMouseUpHandler(new MouseUpHandler(){
+			public void onMouseUp(MouseUpEvent event) {
+				int xCur = event.getNativeEvent().getClientX()- surface.getAbsoluteLeft() + Document.get().getScrollLeft();
+				int yCur = event.getNativeEvent().getClientY()- surface.getAbsoluteTop() + Document.get().getScrollTop();
+				int xLeft = Math.min(xCur, xDown);
+				int yTop = Math.min(yCur, yDown);
+				float boxDensity = 0.5f;
+				int boxWidth = 30;
+				int boxHeight = 30;
+				if (xCur != xDown || yCur != yDown)	{
+					boxWidth = Math.abs(xCur - xDown);
+					boxHeight = Math.abs(yCur - yDown);
+				}
+				Body clickBody = new Body("ClickBody " + clickBodyCounter, 
+						new Box(boxWidth, boxHeight), boxWidth*boxHeight*boxDensity);
+				clickBody.setPosition(xLeft+boxWidth/2, yTop+boxHeight/2);
 				world.add(clickBody);
 			}
 		});
@@ -384,12 +411,12 @@ public abstract class GwtDemo {
 				.drawLineSegment(v4.x, v4.y, v1.x, v1.y)
 				.build())
 			.fillShape(new ShapeBuilder()
-				.drawCircle(v1.x, v1.y, 3)
-				.drawCircle(v2.x, v2.y, 3)
-				.drawCircle(v3.x, v3.y, 3)
-				.drawCircle(v4.x, v4.y, 3)
+				.drawCircle(v1.x, v1.y, 2)
+				.drawCircle(v2.x, v2.y, 2)
+				.drawCircle(v3.x, v3.y, 2)
+				.drawCircle(v4.x, v4.y, 2)
 				.build())
-				.restore();
+			.restore();
 	}
 	
 	// /**
