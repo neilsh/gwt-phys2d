@@ -40,6 +40,7 @@
  */
 package com.phys2d.demo.client;
 
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Timer;
@@ -126,8 +127,8 @@ public abstract class GwtDemo {
 		// NOTE: from GWT docs, using anonymous inner classes for this may result in excess memory usage... 
 		surface.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event) {
-				float xClick = event.getNativeEvent().getClientX()- surface.getAbsoluteLeft(); // + Document.get().getScrollTop();
-				float yClick = event.getNativeEvent().getClientY()- surface.getAbsoluteTop(); // + Document.get().getScrollTop();
+				float xClick = event.getNativeEvent().getClientX()- surface.getAbsoluteLeft() + Document.get().getScrollLeft();
+				float yClick = event.getNativeEvent().getClientY()- surface.getAbsoluteTop() + Document.get().getScrollTop();
 				Body clickBody = new Body("ClickBody " + clickBodyCounter, new Box(50.0f, 50.0f), 100.0f);
 				clickBody.setPosition(xClick, yClick);
 				world.add(clickBody);
