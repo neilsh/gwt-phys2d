@@ -41,8 +41,6 @@
 package com.phys2d.demo.client;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
@@ -143,6 +141,7 @@ public abstract class GwtDemo {
 				yDown = yCur;
 			}
 		});
+		
 		surface.addMouseUpHandler(new MouseUpHandler(){
 			public void onMouseUp(MouseUpEvent event) {
 				int xCur = event.getNativeEvent().getClientX()- surface.getAbsoluteLeft() + Document.get().getScrollLeft();
