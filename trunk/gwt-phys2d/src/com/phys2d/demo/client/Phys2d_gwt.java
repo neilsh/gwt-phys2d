@@ -15,7 +15,7 @@ public class Phys2d_gwt implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 
-		Surface surface = new Surface(600,600);
+		Surface surface = new Surface(800,600);
 		RootPanel.get().add(surface);
 		
 		GwtDemo1 demo = new GwtDemo1(surface);
