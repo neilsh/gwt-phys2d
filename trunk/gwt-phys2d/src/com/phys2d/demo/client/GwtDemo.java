@@ -54,6 +54,7 @@ import net.phys2d.client.raw.shapes.Box;
 import net.phys2d.client.raw.strategies.QuadSpaceStrategy;
 import gwt.g2d.client.graphics.KnownColor;
 import gwt.g2d.client.graphics.Surface;
+import gwt.g2d.client.graphics.shapes.Shape;
 import gwt.g2d.client.graphics.shapes.ShapeBuilder;
 
 /**
@@ -209,7 +210,7 @@ public abstract class GwtDemo {
 			// System.out.println(body);
 			ROVector2f pos = body.getPosition();
 			surface.save().setFillStyle(KnownColor.GREEN_YELLOW).fillShape(
-					new ShapeBuilder().drawCircle(pos.getX(), pos.getY(), 10)
+					new ShapeBuilder().drawCircle(pos.getX(), pos.getY(), 5)
 							.build()).restore();
 			drawBody(body);
 		}
@@ -373,17 +374,20 @@ public abstract class GwtDemo {
 //		g.drawLine((int) v2.x, (int) v2.y, (int) v3.x, (int) v3.y);
 //		g.drawLine((int) v3.x, (int) v3.y, (int) v4.x, (int) v4.y);
 //		g.drawLine((int) v4.x, (int) v4.y, (int) v1.x, (int) v1.y);
+		
 		surface.save()
 			.setFillStyle(KnownColor.DARK_BLUE)
+			.strokeShape(new ShapeBuilder()
+				.drawLineSegment(v1.x, v1.y, v2.x, v2.y)
+				.drawLineSegment(v2.x, v2.y, v3.x, v3.y)
+				.drawLineSegment(v3.x, v3.y, v4.x, v4.y)
+				.drawLineSegment(v4.x, v4.y, v1.x, v1.y)
+				.build())
 			.fillShape(new ShapeBuilder()
 				.drawCircle(v1.x, v1.y, 3)
 				.drawCircle(v2.x, v2.y, 3)
 				.drawCircle(v3.x, v3.y, 3)
 				.drawCircle(v4.x, v4.y, 3)
-				.drawLineSegment(v1.x, v1.y, v2.x, v2.y)
-				.drawLineSegment(v2.x, v2.y, v3.x, v3.y)
-				.drawLineSegment(v3.x, v3.y, v4.x, v4.y)
-				.drawLineSegment(v4.x, v4.y, v1.x, v1.y)
 				.build())
 				.restore();
 	}
