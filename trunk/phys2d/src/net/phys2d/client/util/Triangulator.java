@@ -1,4 +1,4 @@
-package net.phys2d.util;
+package net.phys2d.client.util;
 
 import java.util.ArrayList;
 

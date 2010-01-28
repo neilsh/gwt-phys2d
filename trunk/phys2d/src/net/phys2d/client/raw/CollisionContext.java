@@ -35,7 +35,7 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw;
+package net.phys2d.client.raw;
 
 /**
  * The description of a class which can compute the collisions of a 

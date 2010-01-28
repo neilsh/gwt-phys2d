@@ -35,13 +35,13 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw.collide;
+package net.phys2d.client.raw.collide;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
 
-import net.phys2d.math.Vector2f;
+import net.phys2d.client.math.Vector2f;
 
 /**
  * <p>This is a very important class for collision detection between polygons

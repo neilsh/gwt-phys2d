@@ -35,7 +35,7 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw.shapes;
+package net.phys2d.client.raw.shapes;
 
 /**
  * Super class of generic shapes in the engine
@@ -63,7 +63,7 @@ public strictfp abstract class AbstractShape implements Shape {
 	}
 	
 	/**
-	 * @see net.phys2d.raw.shapes.Shape#getBounds()
+	 * @see net.phys2d.client.raw.shapes.Shape#getBounds()
 	 */
 	public AABox getBounds() {
 		return bounds;

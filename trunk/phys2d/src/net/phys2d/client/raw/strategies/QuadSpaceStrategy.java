@@ -35,15 +35,15 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw.strategies;
+package net.phys2d.client.raw.strategies;
 
 import java.util.ArrayList;
 
-import net.phys2d.raw.Body;
-import net.phys2d.raw.BodyList;
-import net.phys2d.raw.BroadCollisionStrategy;
-import net.phys2d.raw.CollisionContext;
-import net.phys2d.raw.shapes.AABox;
+import net.phys2d.client.raw.Body;
+import net.phys2d.client.raw.BodyList;
+import net.phys2d.client.raw.BroadCollisionStrategy;
+import net.phys2d.client.raw.CollisionContext;
+import net.phys2d.client.raw.shapes.AABox;
 
 /**
  * A strategy that divides the space into 4 repeatedly until either
@@ -72,7 +72,7 @@ public class QuadSpaceStrategy implements BroadCollisionStrategy {
 	}
 	
 	/**
-	 * @see net.phys2d.raw.BroadCollisionStrategy#collideBodies(net.phys2d.raw.CollisionContext, net.phys2d.raw.BodyList, float)
+	 * @see net.phys2d.client.raw.BroadCollisionStrategy#collideBodies(net.phys2d.client.raw.CollisionContext, net.phys2d.client.raw.BodyList, float)
 	 */
 	public void collideBodies(CollisionContext context, BodyList bodies, float dt) {
 		spaces.clear();

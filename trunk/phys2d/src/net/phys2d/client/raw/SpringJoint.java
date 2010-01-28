@@ -38,12 +38,12 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw;
+package net.phys2d.client.raw;
 
-import net.phys2d.math.MathUtil;
-import net.phys2d.math.Matrix2f;
-import net.phys2d.math.ROVector2f;
-import net.phys2d.math.Vector2f;
+import net.phys2d.client.math.MathUtil;
+import net.phys2d.client.math.Matrix2f;
+import net.phys2d.client.math.ROVector2f;
+import net.phys2d.client.math.Vector2f;
 
 /**
  * A joint representing a spring. The spring can have different constants for 

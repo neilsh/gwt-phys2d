@@ -35,13 +35,13 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw.collide;
+package net.phys2d.client.raw.collide;
 
-import net.phys2d.math.MathUtil;
-import net.phys2d.math.Vector2f;
-import net.phys2d.raw.Body;
-import net.phys2d.raw.Contact;
-import net.phys2d.raw.shapes.Circle;
+import net.phys2d.client.math.MathUtil;
+import net.phys2d.client.math.Vector2f;
+import net.phys2d.client.raw.Body;
+import net.phys2d.client.raw.Contact;
+import net.phys2d.client.raw.shapes.Circle;
 
 /**
  * A collider for circles hitting boxes, Circle = BodyA, Box = BodyB
@@ -71,7 +71,7 @@ public strictfp class CircleBoxCollider extends BoxCircleCollider {
 	}
 	
 	/**
-	 * @see net.phys2d.raw.collide.Collider#collide(net.phys2d.raw.Contact[], net.phys2d.raw.Body, net.phys2d.raw.Body)
+	 * @see net.phys2d.client.raw.collide.Collider#collide(net.phys2d.client.raw.Contact[], net.phys2d.client.raw.Body, net.phys2d.client.raw.Body)
 	 */
 	public int collide(Contact[] contacts, Body circleBody, Body boxBody) {
 		int count = super.collide(contacts, boxBody, circleBody);

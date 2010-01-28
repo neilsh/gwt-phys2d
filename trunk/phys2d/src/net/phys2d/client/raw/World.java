@@ -38,13 +38,13 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw;
+package net.phys2d.client.raw;
 
 import java.util.ArrayList;
 
-import net.phys2d.math.Vector2f;
-import net.phys2d.raw.forcesource.ForceSource;
-import net.phys2d.raw.strategies.BruteCollisionStrategy;
+import net.phys2d.client.math.Vector2f;
+import net.phys2d.client.raw.forcesource.ForceSource;
+import net.phys2d.client.raw.strategies.BruteCollisionStrategy;
 
 /**
  * The physics model in which the bodies exist. The world is "stepped"
@@ -453,7 +453,7 @@ public strictfp class World extends CollisionSpace {
 	}
 
 	/**
-	 * @see net.phys2d.raw.CollisionSpace#add(net.phys2d.raw.Body)
+	 * @see net.phys2d.client.raw.CollisionSpace#add(net.phys2d.client.raw.Body)
 	 */
 	public void add(Body body) {                         
 		body.configureRestingBodyDetection(hitTolerance, rotationTolerance, positionTolerance);

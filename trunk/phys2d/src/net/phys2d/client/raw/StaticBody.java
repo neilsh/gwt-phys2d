@@ -38,9 +38,9 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY 
  * OF SUCH DAMAGE.
  */
-package net.phys2d.raw;
+package net.phys2d.client.raw;
 
-import net.phys2d.raw.shapes.Shape;
+import net.phys2d.client.raw.shapes.Shape;
 
 /**
  * A body that will not move
@@ -69,14 +69,14 @@ public strictfp class StaticBody extends Body {
 	}
 
 	/**
-	 * @see net.phys2d.raw.Body#isRotatable()
+	 * @see net.phys2d.client.raw.Body#isRotatable()
 	 */
 	public boolean isRotatable() {
 		return false;
 	}
 	
 	/**
-	 * @see net.phys2d.raw.Body#isMoveable()
+	 * @see net.phys2d.client.raw.Body#isMoveable()
 	 */
 	public boolean isMoveable() {
 		return false;
@@ -92,7 +92,7 @@ public strictfp class StaticBody extends Body {
 	}
 	
 	/**
-	 * @see net.phys2d.raw.Body#isResting()
+	 * @see net.phys2d.client.raw.Body#isResting()
 	 */
 	public boolean isResting() {
 		return true;
